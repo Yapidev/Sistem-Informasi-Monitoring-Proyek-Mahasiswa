@@ -23,11 +23,21 @@ class Project extends Model
 
     public function progresses()
     {
-        return $this->hasMany(Progress::class);
+        return $this->hasMany(Progress::class, 'project_id');
     }
 
     public function documents()
     {
-        return $this->hasMany(Document::class);
+        return $this->hasMany(Document::class, 'project_id');
+    }
+
+    public function getStatusLabelAttribute()
+    {
+        return match ($this->status) {
+            'not_started' => 'Belum Dimulai',
+            'in_progress' => 'Sedang Berlangsung',
+            'completed' => 'Selesai',
+            default => 'Tidak Dikenal',
+        };
     }
 }

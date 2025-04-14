@@ -9,6 +9,8 @@ class Progress extends Model
 {
     use HasFactory;
 
+    protected $table = 'progresses';
+
     protected $guarded = [];
 
     public function project()
