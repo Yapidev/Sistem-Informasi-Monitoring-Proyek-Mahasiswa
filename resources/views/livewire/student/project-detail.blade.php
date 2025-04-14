@@ -47,33 +47,11 @@
                                     @enderror
                                 </div>
 
+                                <label for="date" class="form-label">Tanggal</label>
                                 <div class="col-md-12 mb-3">
-                                    <label class="form-label">Dosen Pembimbing</label>
-                                    <select name="dosen" id="dosen"
-                                        class="form-select @error('lecturer_id') is-invalid @enderror"
-                                        wire:model='lecturer_id'>
-                                        <option>Pilih Dosen Pembimbing</option>
-                                        @foreach ($dosens as $dosen)
-                                            <option value="{{ $dosen->lecturer->id }}"
-                                                @if ($dosen->lecturer->id == $lecturer_id) selected @endif>
-                                                {{ $dosen->lecturer->name }}</option>
-                                        @endforeach
-                                    </select>
-                                    @error('lecturer_id')
-                                        <div class="invalid-feedback">{{ $message }}</div>
-                                    @enderror
-                                </div>
-
-                                <div class="col-md-12 mb-3">
-                                    <label class="form-label">Status</label>
-                                    <select name="status" id="status"
-                                        class="form-select @error('status') is-invalid @enderror" wire:model='status'>
-                                        <option>Pilih Status</option>
-                                        <option value="not_started">Belum dimulai</option>
-                                        <option value="in_progress">Sedang dikerjakan</option>
-                                        <option value="completed">Selesai</option>
-                                    </select>
-                                    @error('status')
+                                    <input type="date" class="form-control @error('date') is-invalid @enderror"
+                                        placeholder="Masukkan Tanggal Progress" wire:model='date' />
+                                    @error('date')
                                         <div class="invalid-feedback">{{ $message }}</div>
                                     @enderror
                                 </div>
@@ -87,8 +65,8 @@
                         <button class="btn bg-danger-subtle text-danger" data-bs-dismiss="modal"
                             wire:click='resetModal'>Batal</button>
                         <button class="btn btn-primary"
-                            @if ($modal_title == 'Edit Proyek') wire:click='updateProject' @else
-                            wire:click='storeProject' @endif
+                            @if ($modal_title == 'Edit Progres') wire:click='updateProgress' @else
+                            wire:click='storeProgress' @endif
                             wire:loading.delay.attr='disabled'>Simpan
                         </button>
                     </div>
@@ -97,4 +75,82 @@
         </div>
     </div>
     {{-- Create Or Update Progress Modal --}}
+
+    {{-- List Progress --}}
+    <div class="card w-100 bg-light-info overflow-hidden shadow-none">
+        <div class="card-body py-3">
+            <div class="row justify-content-between align-items-center mb-3">
+                <div class="col-sm-6">
+                    <h5 class="fw-semibold mb-9 fs-5">Progres Proyek: {{ $project->title }}</h5>
+                    <p class="text-muted mb-0">Dosen Pembimbing: <strong>{{ $project->lecturer->name }}</strong></p>
+                </div>
+            </div>
+
+            @if ($progresses->count() > 0)
+                <div class="table-responsive">
+                    <table class="table table-striped table-hover table-nowrap align-middle mb-0">
+                        <thead>
+                            <tr>
+                                <th>Tanggal</th>
+                                <th>Deskripsi</th>
+                                <th>Aksi</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @foreach ($progresses as $progress)
+                                <tr>
+                                    <td>{{ \Carbon\Carbon::parse($progress->date)->translatedFormat('d F Y') }}</td>
+                                    <td>{{ $progress->description }}</td>
+                                    <td class="d-flex gap-2">
+                                        <button class="btn btn-sm btn-primary"
+                                            wire:click="editProgress({{ $progress->id }})">Edit</button>
+                                        <button class="btn btn-sm btn-danger"
+                                            @click="$dispatch('delete-confirmation', {id: {{ $progress->id }}}).self()">Hapus</button>
+                                    </td>
+                                </tr>
+                            @endforeach
+                        </tbody>
+                    </table>
+                </div>
+            @else
+                <p>Tidak ada progres yang tercatat.</p>
+            @endif
+
+            {{-- Pagination --}}
+            <div class="mt-3">
+                {{ $progresses->links('livewire::bootstrap') }}
+            </div>
+        </div>
+    </div>
+    {{-- List Progress --}}
+
+
+    {{-- Script --}}
+    @script
+        <script>
+            $wire.on('close-modal', () => {
+                $('#addProgressModal').modal('hide');
+            });
+
+            $wire.on('open-modal', () => {
+                $('#addProgressModal').modal('show');
+            });
+
+            $wire.on('delete-confirmation', data => {
+                Swal.fire({
+                    title: 'Apakah Anda yakin?',
+                    text: 'Anda tidak dapat mengembalikan data yang dihapus!',
+                    icon: "warning",
+                    showCancelButton: true,
+                    cancelButtonText: "Batal",
+                    confirmButtonText: "Hapus"
+                }).then((result) => {
+                    if (result.value) {
+                        $wire.deleteProgress(data.id)
+                    }
+                });
+            });
+        </script>
+    @endscript
+    {{-- Script --}}
 </div>

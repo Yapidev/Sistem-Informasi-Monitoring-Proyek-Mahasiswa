@@ -23,7 +23,8 @@ class Project extends Model
 
     public function progresses()
     {
-        return $this->hasMany(Progress::class, 'project_id');
+        return $this->hasMany(Progress::class, 'project_id')
+            ->orderByDesc('date');
     }
 
     public function documents()
