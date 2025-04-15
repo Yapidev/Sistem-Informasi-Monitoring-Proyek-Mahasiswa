@@ -12,4 +12,10 @@ class Navbar extends Component
             'user' => auth()->user()
         ]);
     }
+
+    public function logout()
+    {
+        auth()->logout();
+        return $this->redirect('login', navigate: true);
+    }
 }
