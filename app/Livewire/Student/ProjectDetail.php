@@ -8,6 +8,8 @@ use Illuminate\Support\Facades\Storage;
 use Livewire\Component;
 use Livewire\Features\SupportFileUploads\WithFileUploads;
 use Livewire\WithPagination;
+use Jantinnerezo\LivewireAlert\Facades\LivewireAlert;
+use Livewire\Livewire;
 
 class ProjectDetail extends Component
 {
@@ -114,9 +116,13 @@ class ProjectDetail extends Component
             'description' => $this->description,
         ]);
 
-        session()->flash('success', 'Progres berhasil ditambahkan.');
         $this->closeProgressModal();
         $this->resetProgressModal();
+
+        LivewireAlert::title('Berhasil')
+            ->text('Progres berhasil ditambahkan.')
+            ->success()
+            ->show();
     }
 
     public function editProgress($progress_id)
@@ -142,9 +148,13 @@ class ProjectDetail extends Component
             'description' => $this->description,
         ]);
 
-        session()->flash('success', 'Progres berhasil diperbarui.');
         $this->closeProgressModal();
         $this->resetProgressModal();
+
+        LivewireAlert::title('Berhasil')
+            ->text('Progres berhasil diperbarui.')
+            ->success()
+            ->show();
     }
 
     public function deleteProgress($progress_id)
@@ -157,8 +167,11 @@ class ProjectDetail extends Component
         }
 
         $progress->delete();
-        session()->flash('success', 'Progres berhasil dihapus.');
-        $this->dispatch('progressDeleted');
+
+        LivewireAlert::title('Berhasil')
+            ->text('Progres berhasil dihapus.')
+            ->success()
+            ->show();
     }
 
     public function createDocument()
@@ -183,9 +196,13 @@ class ProjectDetail extends Component
             'file_path' => $filePath,
         ]);
 
-        session()->flash('success', 'Dokumen berhasil diunggah.');
         $this->resetDocumentModal();
         $this->closeDocumentModal();
+
+        LivewireAlert::title('Berhasil')
+            ->text('Dokumen berhasil diunggah.')
+            ->success()
+            ->show();
     }
 
     public function editDocument($id)
@@ -225,9 +242,13 @@ class ProjectDetail extends Component
 
         $doc->update($data);
 
-        session()->flash('success', 'Dokumen berhasil diperbarui.');
         $this->resetDocumentModal();
         $this->closeDocumentModal();
+
+        LivewireAlert::title('Berhasil')
+            ->text('Dokumen berhasil diperbarui.')
+            ->success()
+            ->show();
     }
 
     public function deleteDocument($id)
@@ -240,7 +261,9 @@ class ProjectDetail extends Component
 
         $doc->delete();
 
-        session()->flash('success', 'Dokumen berhasil dihapus.');
-        $this->dispatch('documentDeleted');
+        LivewireAlert::title('Berhasil')
+            ->text('Dokumen berhasil dihapus.')
+            ->success()
+            ->show();
     }
 }

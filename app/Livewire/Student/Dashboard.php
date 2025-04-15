@@ -6,6 +6,7 @@ use App\Models\User;
 use Livewire\Attributes\Url;
 use Livewire\Component;
 use Livewire\WithPagination;
+use Jantinnerezo\LivewireAlert\Facades\LivewireAlert;
 
 class Dashboard extends Component
 {
@@ -92,9 +93,12 @@ class Dashboard extends Component
 
         $this->closeModal();
 
-        session()->flash('success', 'Project berhasil dibuat!');
-
         $this->resetModal();
+
+        LivewireAlert::title('Berhasil')
+            ->text('Proyek berhasil dibuat!')
+            ->success()
+            ->show();
     }
 
     public function editProject($projectId)
@@ -126,9 +130,12 @@ class Dashboard extends Component
 
         $this->closeModal();
 
-        session()->flash('success', 'Project berhasil diperbarui!');
-
         $this->resetModal();
+
+        LivewireAlert::title('Berhasil')
+            ->text('Proyek berhasil diperbarui!')
+            ->success()
+            ->show();
     }
 
     public function deleteProject($project_id)
@@ -147,8 +154,12 @@ class Dashboard extends Component
 
         $project->delete();
 
-        session()->flash('success', 'Proyek berhasil dihapus.');
         $this->dispatch('projectDeleted');
+
+        LivewireAlert::title('Berhasil')
+            ->text('Proyek berhasil dihapus!')
+            ->success()
+            ->show();
     }
 
     public function closeModal()
