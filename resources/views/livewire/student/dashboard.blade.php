@@ -113,21 +113,21 @@
                 <div class="col-sm-6">
                     <h5 class="fw-semibold mb-9 fs-5">Daftar Proyek</h5>
                 </div>
-                {{-- Pencarian & Filter --}}
-                <div class="row mb-3">
-                    <div class="col-md-9">
-                        <input type="text" class="form-control bg-white" placeholder="Cari judul proyek..."
-                            wire:model.live="search">
-                    </div>
-                    <div class="col-md-3 mt-2 mt-md-0">
-                        <select class="form-select bg-white" wire:model.live="sortOrder">
-                            <option value="desc">Terbaru</option>
-                            <option value="asc">Terlama</option>
-                        </select>
-                    </div>
-                </div>
-                {{-- End Pencarian & Filter --}}
             </div>
+            {{-- Pencarian & Filter --}}
+            <div class="row mb-3">
+                <div class="col-md-9">
+                    <input type="text" class="form-control bg-white" placeholder="Cari judul proyek..."
+                        wire:model.live="search">
+                </div>
+                <div class="col-md-3 mt-2 mt-md-0">
+                    <select class="form-select bg-white" wire:model.live="sortOrder">
+                        <option value="desc">Terbaru</option>
+                        <option value="asc">Terlama</option>
+                    </select>
+                </div>
+            </div>
+            {{-- End Pencarian & Filter --}}
 
             @if ($projects->count() > 0)
                 <div class="table-responsive">

@@ -18,6 +18,8 @@ class ProjectDetail extends Component
     public $date, $description, $progress_id;
     public $file_name, $file, $document_id;
     public $modal_title;
+    public $progressSearch, $progressSort = 'desc';
+    public $documentSearch, $documentSort = 'desc';
 
     protected $rules = [
         'date' => 'required|date',
@@ -42,11 +44,17 @@ class ProjectDetail extends Component
         ]);
 
         $progresses = $project->progresses()
-            ->orderBy('date', 'desc')
+            ->when($this->progressSearch, function ($query) {
+                $query->where('description', 'like', '%' . $this->progressSearch . '%');
+            })
+            ->orderBy('date', $this->progressSort)
             ->paginate(5);
 
         $documents = $project->documents()
-            ->orderBy('created_at', 'desc')
+            ->when($this->documentSearch, function ($query) {
+                $query->where('file_name', 'like', '%' . $this->documentSearch . '%');
+            })
+            ->orderBy('created_at', $this->documentSort)
             ->paginate(5);
 
         return view('livewire.student.project-detail', [
