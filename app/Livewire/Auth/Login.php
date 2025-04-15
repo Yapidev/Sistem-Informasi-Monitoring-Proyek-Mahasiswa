@@ -4,9 +4,9 @@ namespace App\Livewire\Auth;
 
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Validation\Rule;
-use Livewire\Attributes\Layout;
 use Livewire\Attributes\Validate;
 use Livewire\Component;
+use Jantinnerezo\LivewireAlert\Facades\LivewireAlert;
 
 class Login extends Component
 {
@@ -55,6 +55,9 @@ class Login extends Component
         }
 
         // User failed to authenticate, display error message
-        $this->dispatch('notify', icon: 'error', title: 'Gagal', message: 'Email atau password salah');
+        LivewireAlert::title('Gagal')
+            ->text('Email atau password salah')
+            ->error()
+            ->show();
     }
 }

@@ -16,6 +16,9 @@ class Navbar extends Component
     public function logout()
     {
         auth()->logout();
+
+        session()->flash('success', 'Logout berhasil');
+
         return $this->redirect('login', navigate: true);
     }
 }
