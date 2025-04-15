@@ -3,6 +3,7 @@
 namespace App\Livewire\Student;
 
 use App\Models\User;
+use Livewire\Attributes\Url;
 use Livewire\Component;
 use Livewire\WithPagination;
 
@@ -11,6 +12,10 @@ class Dashboard extends Component
     use WithPagination;
 
     public $title, $description, $modal_title, $lecturer_id, $status, $project_id;
+    #[Url('search')]
+    public $search = '';
+    #[Url('sort')]
+    public $sortOrder = 'desc';
 
     protected $rules = [
         'title' => 'required|string|max:255',
@@ -34,6 +39,16 @@ class Dashboard extends Component
         'status.in' => 'Status proyek tidak valid. Pilih salah satu: Belum Dimulai, Sedang Berlangsung, atau Selesai.',
     ];
 
+    public function updatingSearch()
+    {
+        $this->resetPage();
+    }
+
+    public function updatingSortOrder()
+    {
+        $this->resetPage();
+    }
+
     public function render()
     {
         $dosens = User::whereRole('lecturer')
@@ -43,6 +58,10 @@ class Dashboard extends Component
         $projects = auth()->user()
             ->projects()
             ->with('lecturer')
+            ->when($this->search, function ($query) {
+                $query->where('title', 'like', '%' . $this->search . '%');
+            })
+            ->orderBy('created_at', $this->sortOrder)
             ->paginate(5);
 
         return view('livewire.student.dashboard', [

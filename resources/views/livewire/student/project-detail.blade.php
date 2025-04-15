@@ -9,12 +9,6 @@
                     <a href="{{ route('student.dashboard') }}" class="btn btn-warning my-2 me-2" wire:navigate>
                         Kembali
                     </a>
-                    <button class="btn btn-primary my-2 text-capitalize" wire:click='createProgress'
-                        wire:loading.attr='disabled'>
-                        Tambah Progres</button>
-                    <button class="btn btn-primary my-2 text-capitalize" wire:click='createDocument'
-                        wire:loading.attr='disabled'>
-                        Tambah Dokumen</button>
                 </div>
                 <div class="col-3">
                     <div class="text-center mb-n5">
@@ -136,135 +130,152 @@
     </div>
     {{-- Create Or Update Document Modal --}}
 
-    <!-- Nav tabs -->
-    <ul class="nav nav-pills flex-column flex-sm-row my-4" role="tablist">
-        <li class="nav-item flex-sm-fill text-sm-center">
-            <a class="nav-link border border-primary active" data-bs-toggle="tab" href="#navpill-11" role="tab">
-                <span>Progres</span>
-            </a>
-        </li>
-        <li class="nav-item flex-sm-fill text-sm-center">
-            <a class="nav-link border border-primary" data-bs-toggle="tab" href="#navpill-22" role="tab">
-                <span>Dokumen</span>
-            </a>
-        </li>
-    </ul>
-    <!-- Nav tabs -->
+    <div x-data="{ tab: 'progress' }">
+        <!-- Nav tabs -->
+        <ul class="nav nav-pills flex-column flex-sm-row my-4" role="tablist">
+            <li class="nav-item flex-sm-fill text-sm-center">
+                <a class="nav-link border border-primary" @click.prevent="tab = 'progress'"
+                    :class="{ 'active': tab === 'progress' }" href="#" role="tab">
+                    <span>Progres</span>
+                </a>
+            </li>
+            <li class="nav-item flex-sm-fill text-sm-center">
+                <a class="nav-link border border-primary" @click.prevent="tab = 'document'"
+                    :class="{ 'active': tab === 'document' }" href="#" role="tab">
+                    <span>Dokumen</span>
+                </a>
+            </li>
+        </ul>
+        <!-- Nav tabs -->
 
-    <!-- Tab panes -->
-    <div class="tab-content mt-2">
-        <div class="tab-pane active" id="navpill-11" role="tabpanel">
+        <!-- Tab panes -->
+        <div class="tab-content mt-2">
+            <div x-show="tab === 'progress'" :class="{ 'active': tab === 'progress' }" class="tab-pane active"
+                id="navpill-11" role="tabpanel">
 
-            {{-- List Progress --}}
-            <div class="card w-100 bg-light-info overflow-hidden shadow-none">
-                <div class="card-body py-3">
-                    <div class="row justify-content-between align-items-center mb-3">
-                        <div class="col-sm-6">
-                            <h5 class="fw-semibold mb-9 fs-5">Progres Proyek: {{ $project->title }}</h5>
-                            <p class="text-muted mb-0">Dosen Pembimbing:
-                                <strong>{{ $project->lecturer->name }}</strong>
-                            </p>
+                {{-- List Progress --}}
+                <div class="card w-100 bg-light-info overflow-hidden shadow-none">
+                    <div class="card-body py-3">
+                        <div class="row justify-content-between align-items-center mb-3">
+                            <div class="col-sm-6">
+                                <h5 class="fw-semibold mb-9 fs-5">Progres Proyek: {{ $project->title }}</h5>
+                                <p class="text-muted mb-0">Dosen Pembimbing:
+                                    <strong>{{ $project->lecturer->name }}</strong>
+                                </p>
+                            </div>
+                            <div class="col-sm-6 text-sm-end text-start mt-3 mt-sm-0">
+                                <button class="btn btn-primary text-capitalize" wire:click='createProgress'
+                                    wire:loading.attr='disabled'>
+                                    Tambah Progres
+                                </button>
+                            </div>
                         </div>
-                    </div>
 
-                    @if ($progresses->count() > 0)
-                        <div class="table-responsive">
-                            <table class="table table-striped table-hover table-nowrap align-middle mb-0">
-                                <thead>
-                                    <tr>
-                                        <th>Tanggal</th>
-                                        <th>Deskripsi</th>
-                                        <th>Aksi</th>
-                                    </tr>
-                                </thead>
-                                <tbody>
-                                    @foreach ($progresses as $progress)
+                        @if ($progresses->count() > 0)
+                            <div class="table-responsive">
+                                <table class="table table-striped table-hover table-nowrap align-middle mb-0">
+                                    <thead>
                                         <tr>
-                                            <td>{{ \Carbon\Carbon::parse($progress->date)->translatedFormat('d F Y') }}
-                                            </td>
-                                            <td>{{ $progress->description }}</td>
-                                            <td class="d-flex gap-2">
-                                                <button class="btn btn-sm btn-primary"
-                                                    wire:click="editProgress({{ $progress->id }})">Edit</button>
-                                                <button class="btn btn-sm btn-danger"
-                                                    @click="$dispatch('delete-progress-confirmation', {id: {{ $progress->id }}}).self()">Hapus</button>
-                                            </td>
+                                            <th>Tanggal</th>
+                                            <th>Deskripsi</th>
+                                            <th>Aksi</th>
                                         </tr>
-                                    @endforeach
-                                </tbody>
-                            </table>
-                        </div>
-                    @else
-                        <p>Tidak ada progres yang tercatat.</p>
-                    @endif
+                                    </thead>
+                                    <tbody>
+                                        @foreach ($progresses as $progress)
+                                            <tr>
+                                                <td>{{ \Carbon\Carbon::parse($progress->date)->translatedFormat('d F Y') }}
+                                                </td>
+                                                <td>{{ $progress->description }}</td>
+                                                <td class="d-flex gap-2">
+                                                    <button class="btn btn-sm btn-primary"
+                                                        wire:click="editProgress({{ $progress->id }})">Edit</button>
+                                                    <button class="btn btn-sm btn-danger"
+                                                        @click="$dispatch('delete-progress-confirmation', {id: {{ $progress->id }}}).self()">Hapus</button>
+                                                </td>
+                                            </tr>
+                                        @endforeach
+                                    </tbody>
+                                </table>
+                            </div>
+                        @else
+                            <p>Tidak ada progres yang tercatat.</p>
+                        @endif
 
-                    {{-- Pagination --}}
-                    <div class="mt-3">
-                        {{ $progresses->links('livewire::bootstrap') }}
+                        {{-- Pagination --}}
+                        <div class="mt-3">
+                            {{ $progresses->links('livewire::bootstrap', data: ['scrollTo' => false]) }}
+                        </div>
                     </div>
                 </div>
+                {{-- List Progress --}}
+
             </div>
-            {{-- List Progress --}}
+            <div x-show="tab === 'document'" :class="{ 'active': tab === 'document' }" class="tab-pane"
+                id="navpill-22" role="tabpanel">
 
-        </div>
-        <div class="tab-pane" id="navpill-22" role="tabpanel">
-
-            {{-- List Dokumen --}}
-            <div class="card w-100 bg-light-info overflow-hidden shadow-none">
-                <div class="card-body py-3">
-                    <div class="row justify-content-between align-items-center mb-3">
-                        <div class="col-sm-6">
-                            <h5 class="fw-semibold mb-9 fs-5">Dokumen Proyek: {{ $project->title }}</h5>
-                            <p class="text-muted mb-0">Dosen Pembimbing:
-                                <strong>{{ $project->lecturer->name }}</strong>
-                            </p>
+                {{-- List Dokumen --}}
+                <div class="card w-100 bg-light-info overflow-hidden shadow-none">
+                    <div class="card-body py-3">
+                        <div class="row justify-content-between align-items-center mb-3">
+                            <div class="col-sm-6">
+                                <h5 class="fw-semibold mb-9 fs-5">Dokumen Proyek: {{ $project->title }}</h5>
+                                <p class="text-muted mb-0">Dosen Pembimbing:
+                                    <strong>{{ $project->lecturer->name }}</strong>
+                                </p>
+                            </div>
+                            <div class="col-sm-6 text-sm-end text-start mt-3 mt-sm-0">
+                                <button class="btn btn-primary my-2 text-capitalize" wire:click='createDocument'
+                                    wire:loading.attr='disabled'>
+                                    Tambah Dokumen</button>
+                            </div>
                         </div>
-                    </div>
 
-                    @if ($documents->count() > 0)
-                        <div class="table-responsive">
-                            <table class="table table-striped table-hover table-nowrap align-middle mb-0">
-                                <thead>
-                                    <tr>
-                                        <th>Nama File</th>
-                                        <th>Link File</th>
-                                        <th>Tanggal Upload</th>
-                                        <th>Aksi</th>
-                                    </tr>
-                                </thead>
-                                <tbody>
-                                    @foreach ($documents as $doc)
+                        @if ($documents->count() > 0)
+                            <div class="table-responsive">
+                                <table class="table table-striped table-hover table-nowrap align-middle mb-0">
+                                    <thead>
                                         <tr>
-                                            <td>{{ $doc->file_name }}</td>
-                                            <td>
-                                                <a href="{{ Storage::url($doc->file_path) }}" target="_blank">
-                                                    Buka Dokumen
-                                                </a>
-                                            </td>
-                                            <td>{{ \Carbon\Carbon::parse($doc->created_at)->translatedFormat('d F Y') }}
-                                            </td>
-                                            <td class="d-flex gap-2">
-                                                <button class="btn btn-sm btn-primary"
-                                                    wire:click="editDocument({{ $doc->id }})">Edit</button>
-                                                <button class="btn btn-sm btn-danger"
-                                                    @click="$dispatch('delete-document-confirmation', {id: {{ $doc->id }}}).self()">Hapus</button>
-                                            </td>
+                                            <th>Nama File</th>
+                                            <th>Link File</th>
+                                            <th>Tanggal Upload</th>
+                                            <th>Aksi</th>
                                         </tr>
-                                    @endforeach
-                                </tbody>
-                            </table>
-                        </div>
-                    @else
-                        <p>Tidak ada dokumen yang diunggah.</p>
-                    @endif
+                                    </thead>
+                                    <tbody>
+                                        @foreach ($documents as $doc)
+                                            <tr>
+                                                <td>{{ $doc->file_name }}</td>
+                                                <td>
+                                                    <a href="{{ Storage::url($doc->file_path) }}" target="_blank">
+                                                        Buka Dokumen
+                                                    </a>
+                                                </td>
+                                                <td>{{ \Carbon\Carbon::parse($doc->created_at)->translatedFormat('d F Y') }}
+                                                </td>
+                                                <td class="d-flex gap-2">
+                                                    <button class="btn btn-sm btn-primary"
+                                                        wire:click="editDocument({{ $doc->id }})">Edit</button>
+                                                    <button class="btn btn-sm btn-danger"
+                                                        @click="$dispatch('delete-document-confirmation', {id: {{ $doc->id }}}).self()">Hapus</button>
+                                                </td>
+                                            </tr>
+                                        @endforeach
+                                    </tbody>
+                                </table>
+                            </div>
+                        @else
+                            <p>Tidak ada dokumen yang diunggah.</p>
+                        @endif
 
-                    {{-- Pagination --}}
-                    <div class="mt-3">
-                        {{ $documents->links('livewire::bootstrap') }}
+                        {{-- Pagination --}}
+                        <div class="mt-3">
+                            {{ $documents->links('livewire::bootstrap', data: ['scrollTo' => false]) }}
+                        </div>
                     </div>
                 </div>
+                {{-- List Dokumen --}}
             </div>
-            {{-- List Dokumen --}}
         </div>
     </div>
 
