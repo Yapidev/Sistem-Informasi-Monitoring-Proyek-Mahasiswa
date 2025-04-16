@@ -283,7 +283,8 @@
                                             <tr>
                                                 <td>{{ $doc->file_name }}</td>
                                                 <td>
-                                                    <a href="{{ Storage::url($doc->file_path) }}" target="_blank">
+                                                    <a href="{{ url('storage/' . $doc->file_path) }}"
+                                                        target="_blank">
                                                         Buka Dokumen
                                                     </a>
                                                 </td>
