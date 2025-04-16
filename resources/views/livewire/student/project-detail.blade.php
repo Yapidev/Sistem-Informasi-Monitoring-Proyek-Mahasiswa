@@ -215,7 +215,7 @@
                                 </table>
                             </div>
                         @else
-                            @if ($searchProgress)
+                            @if ($progressSearch)
                                 <p>Tidak ada progres yang ditemukan.</p>
                             @else
                                 <p>Tidak ada progres yang tercatat.</p>
@@ -301,7 +301,7 @@
                                 </table>
                             </div>
                         @else
-                            @if ($searchDocument)
+                            @if ($documentSearch)
                                 <p>Tidak ada dokumen yang ditemukan.</p>
                             @else
                                 <p>Tidak ada dokumen yang diunggah.</p>
