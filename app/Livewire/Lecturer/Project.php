@@ -9,7 +9,7 @@ class Project extends Component
 {
     use WithPagination;
 
-    public $search, $status;
+    public $search, $status, $sort = 'desc';
 
     protected $queryString = ['status'];
 
@@ -23,7 +23,7 @@ class Project extends Component
             ->when($this->search, function ($query) {
                 $query->where('title', 'like', '%' . $this->search . '%');
             })
-            ->orderBy('created_at', 'desc')
+            ->orderBy('created_at', $this->sort)
             ->paginate(5);
 
         return view('livewire.lecturer.project', [

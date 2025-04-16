@@ -21,4 +21,5 @@ Route::middleware('auth', 'role:lecturer')->prefix('lecturer')->group(function (
     Route::get('student', App\Livewire\Lecturer\Student::class)->name('lecturer.student');
     Route::get('project', App\Livewire\Lecturer\Project::class)->name('lecturer.project');
     Route::get('lecturer-list', App\Livewire\Lecturer\LecturerList::class)->name('lecturer.lecturer-list');
+    Route::get('project-detail/{project}', App\Livewire\Lecturer\ProjectDetail::class)->name('lecturer.project-detail');
 });

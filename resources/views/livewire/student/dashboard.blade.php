@@ -111,7 +111,7 @@
         <div class="card-body py-3">
             <div class="row justify-content-between align-items-center mb-3">
                 <div class="col-sm-6">
-                    <h5 class="fw-semibold mb-9 fs-5">Daftar Proyek</h5>
+                    <h5 class="fw-semibold mb-9 fs-5">Daftar Proyek Saya</h5>
                 </div>
             </div>
             {{-- Pencarian & Filter --}}
@@ -150,11 +150,11 @@
                                     <td>{{ \Carbon\Carbon::parse($project->created_at)->translatedFormat('d F Y') }}
                                     </td>
                                     <td class="d-flex gap-2">
-                                        <button class="btn btn-primary btn-sm"
+                                        <a href="{{ route('student.project.detail', $project->id) }}"
+                                            class="btn btn-info btn-sm" wire:navigate>Detail</a>
+                                        <button class="btn btn-warning btn-sm"
                                             wire:click='editProject({{ $project->id }})'
                                             wire:loading.attr='disabled'>Edit</button>
-                                        <a href="{{ route('student.project.detail', $project->id) }}"
-                                            class="btn btn-warning btn-sm" wire:navigate>Lihat</a>
                                         <button class="btn btn-danger btn-sm"
                                             @click="$dispatch('delete-confirmation', {id: {{ $project->id }}}).self()">Hapus</button>
                                     </td>

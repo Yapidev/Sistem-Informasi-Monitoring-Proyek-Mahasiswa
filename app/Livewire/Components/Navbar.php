@@ -19,6 +19,6 @@ class Navbar extends Component
 
         session()->flash('success', 'Logout berhasil');
 
-        return $this->redirect('login', navigate: true);
+        return $this->redirect('/auth/login', navigate: true);
     }
 }

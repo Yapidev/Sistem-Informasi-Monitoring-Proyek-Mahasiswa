@@ -10,7 +10,7 @@ class Student extends Component
 {
     use WithPagination;
 
-    public $search;
+    public $search, $sort = 'desc';
 
     public function render()
     {
@@ -23,6 +23,7 @@ class Student extends Component
             })
             ->with('student')
             ->orderBy('name')
+            ->orderBy('created_at', $this->sort)
             ->paginate(5);
 
         return view('livewire.lecturer.student', [

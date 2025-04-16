@@ -6,7 +6,7 @@
                 <div class="col-9">
                     <h4 class="fw-semibold mb-8">Daftar Mahasiswa</h4>
                     <p class="mb-8">Ini adalah halaman yang berisi daftar mahasiswa</p>
-                    <a href="{{ route('lecturer.dashboard') }}" class="btn btn-warning my-2 me-2" wire:navigate>
+                    <a href="{{ route('lecturer.dashboard') }}" class="btn btn-outline-secondary my-2 me-2" wire:navigate>
                         Kembali
                     </a>
                 </div>
@@ -27,8 +27,8 @@
             {{-- Pencarian & Filter --}}
             <div class="row mb-3">
                 <div class="col-md-9">
-                    <input type="search" class="form-control bg-white"
-                        placeholder="Cari Mahasiswa berdasarkan nama..." wire:model.live="search" />
+                    <input type="search" class="form-control bg-white" placeholder="Cari Mahasiswa berdasarkan nama..."
+                        wire:model.live="search" />
                 </div>
                 <div class="col-md-3 mt-2 mt-md-0">
                     <select class="form-select bg-white" wire:model.live="sort">

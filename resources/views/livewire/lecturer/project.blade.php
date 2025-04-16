@@ -6,7 +6,7 @@
                 <div class="col-9">
                     <h4 class="fw-semibold mb-8">{{ $this->title }}</h4>
                     <p class="mb-8">{{ $this->description }}</p>
-                    <a href="{{ route('lecturer.dashboard') }}" class="btn btn-warning my-2 me-2" wire:navigate>
+                    <a href="{{ route('lecturer.dashboard') }}" class="btn btn-outline-secondary my-2 me-2" wire:navigate>
                         Kembali
                     </a>
                 </div>
@@ -31,11 +31,11 @@
             {{-- Pencarian & Filter --}}
             <div class="row mb-3">
                 <div class="col-md-9">
-                    <input type="text" class="form-control bg-white" placeholder="Cari judul proyek..."
+                    <input type="search" class="form-control bg-white" placeholder="Cari judul proyek..."
                         wire:model.live="search">
                 </div>
                 <div class="col-md-3 mt-2 mt-md-0">
-                    <select class="form-select bg-white" wire:model.live="sortOrder">
+                    <select class="form-select bg-white" wire:model.live="sort">
                         <option value="desc">Terbaru</option>
                         <option value="asc">Terlama</option>
                     </select>
@@ -52,6 +52,7 @@
                                 <th>Dosen Pembimbing</th>
                                 <th>Status</th>
                                 <th>Tanggal</th>
+                                <th>Aksi</th>
                             </tr>
                         </thead>
                         <tbody>
@@ -61,6 +62,12 @@
                                     <td>{{ $project->lecturer->name }}</td>
                                     <td>{{ $project->status_label }}</td>
                                     <td>{{ \Carbon\Carbon::parse($project->created_at)->translatedFormat('d F Y') }}
+                                    </td>
+                                    <td>
+                                        <a href="{{ route('lecturer.project-detail', $project->id) }}"
+                                            class="btn btn-info btn-sm" wire:navigate>
+                                            Detail
+                                        </a>
                                     </td>
                                 </tr>
                             @endforeach
