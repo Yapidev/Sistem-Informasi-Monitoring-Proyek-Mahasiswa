@@ -4,8 +4,8 @@
         <div class="card-body px-4 py-3">
             <div class="row align-items-center">
                 <div class="col-9">
-                    <h4 class="fw-semibold mb-8">Daftar Proyek Mahasiswa</h4>
-                    <p class="mb-8">Ini adalah halaman yang berisi daftar Proyek Mahasiswa.</p>
+                    <h4 class="fw-semibold mb-8">{{ $this->title }}</h4>
+                    <p class="mb-8">{{ $this->description }}</p>
                     <a href="{{ route('lecturer.dashboard') }}" class="btn btn-warning my-2 me-2" wire:navigate>
                         Kembali
                     </a>

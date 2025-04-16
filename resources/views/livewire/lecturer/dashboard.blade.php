@@ -108,21 +108,21 @@
                 'desc' => 'Klik untuk melihat proyek yang sudah selesai',
                 'icon' => 'ti-folders',
                 'bg' => 'bg-danger',
-                'href' => route('lecturer.project'),
+                'href' => route('lecturer.project', ['status' => 'completed']),
             ],
             [
                 'title' => 'Proyek Sedang Dikerjakan',
                 'desc' => 'Klik untuk melihat proyek yang sedang dikerjakan',
                 'icon' => 'ti-folders',
                 'bg' => 'bg-info',
-                'href' => route('lecturer.project'),
+                'href' => route('lecturer.project', ['status' => 'in_progress']),
             ],
             [
                 'title' => 'Proyek Belum Dikerjakan',
                 'desc' => 'Klik untuk melihat proyek yang belum dikerjakan',
                 'icon' => 'ti-folders',
                 'bg' => 'bg-secondary',
-                'href' => route('lecturer.project'),
+                'href' => route('lecturer.project', ['status' => 'not_started']),
             ],
         ];
     @endphp

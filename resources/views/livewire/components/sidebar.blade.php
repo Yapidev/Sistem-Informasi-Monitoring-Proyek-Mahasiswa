@@ -48,12 +48,30 @@
                             <span class="hide-menu">Dosen</span>
                         </a>
 
-                        <a class="sidebar-link {{ request()->routeIs('lecturer.project') ? 'active' : '' }}"
+                        <a class="sidebar-link {{ request()->routeIs('lecturer.project') && request('status') === null ? 'active' : '' }}"
                             href="{{ route('lecturer.project') }}" aria-expanded="false" wire:navigate>
                             <span>
                                 <i class="ti ti-folders"></i>
                             </span>
                             <span class="hide-menu">Project</span>
+                        </a>
+
+                        <a class="sidebar-link {{ request()->routeIs('lecturer.project') && request('status') === 'completed' ? 'active' : '' }}"
+                            href="{{ route('lecturer.project', ['status' => 'completed']) }}" wire:navigate>
+                            <span><i class="ti ti-clock-check"></i></span>
+                            <span class="hide-menu">Project Selesai</span>
+                        </a>
+
+                        <a class="sidebar-link {{ request()->routeIs('lecturer.project') && request('status') === 'in_progress' ? 'active' : '' }}"
+                            href="{{ route('lecturer.project', ['status' => 'in_progress']) }}" wire:navigate>
+                            <span><i class="ti ti-clock-cog"></i></span>
+                            <span class="hide-menu">Project Dikerjakan</span>
+                        </a>
+
+                        <a class="sidebar-link {{ request()->routeIs('lecturer.project') && request('status') === 'not_started' ? 'active' : '' }}"
+                            href="{{ route('lecturer.project', ['status' => 'not_started']) }}" wire:navigate>
+                            <span><i class="ti ti-clock-x"></i></span>
+                            <span class="hide-menu">Project Belum Mulai</span>
                         </a>
                     @endif
                 </li>
