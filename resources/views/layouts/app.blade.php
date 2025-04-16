@@ -21,6 +21,7 @@
     <link id="themeColors" rel="stylesheet" href="{{ asset('assets/css/style.min.css') }}" />
     <link rel="stylesheet" href="{{ asset('assets/css/main/app-layouts.css') }}">
     <link rel="stylesheet" href="{{ asset('assets/libs/sweetalert2/dist/sweetalert2.min.css') }}">
+    <link rel="stylesheet" href="{{ asset('assets/libs/owl.carousel/dist/assets/owl.carousel.min.css') }}">
     {{-- Import CSS File --}}
 
     {{-- STACK STYLE --}}
@@ -49,8 +50,8 @@
     <!-- Preloader -->
 
     <!--  Body Wrapper -->
-    <div class="page-wrapper" id="main-wrapper" data-theme="blue_theme" data-layout="vertical" data-sidebartype="full"
-        data-sidebar-position="fixed" data-header-position="fixed">
+    <div class="page-wrapper" id="main-wrapper" data-theme="blue_theme" data-layout="vertical"
+        data-sidebartype="mini-sidebar" data-sidebar-position="fixed" data-header-position="fixed">
 
         <!-- Sidebar Start -->
         <aside class="left-sidebar">
