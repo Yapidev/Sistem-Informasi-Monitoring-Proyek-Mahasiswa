@@ -49,6 +49,7 @@
                         <thead>
                             <tr>
                                 <th>Judul Proyek</th>
+                                <th>Nama Mahasiswa</th>
                                 <th>Dosen Pembimbing</th>
                                 <th>Status</th>
                                 <th>Tanggal</th>
@@ -58,6 +59,7 @@
                         <tbody>
                             @foreach ($projects as $project)
                                 <tr>
+                                    <td>{{ $project->student->name }}</td>
                                     <td>{{ $project->title }}</td>
                                     <td>{{ $project->lecturer->name }}</td>
                                     <td><span class="mb-1 badge font-medium {{ $project->status_badge_class }}">

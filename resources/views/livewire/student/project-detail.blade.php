@@ -5,7 +5,8 @@
             <div class="row align-items-center">
                 <div class="col-9">
                     <h4 class="fw-semibold mb-8">Detail Proyek berjudul "{{ $project->title }}"</h4>
-                    <p class="mb-8">{{ $project->description }}</p>
+                    <p class="mb-8">Deskripsi: {{ $project->description }}</p>
+                    <p class="mb-8">Nama Mahasiswa: {{ $project->student->name }}</p>
                     <a href="{{ route('student.dashboard') }}" class="btn btn-outline-secondary my-2 me-2" wire:navigate>
                         Kembali
                     </a>
