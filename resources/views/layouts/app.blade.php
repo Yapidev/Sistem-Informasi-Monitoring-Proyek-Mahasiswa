@@ -11,8 +11,13 @@
     <!-- CSRF Token -->
 
     {{-- Title --}}
-    <title>{{ config('app.name', 'MiPens') }}</title>
+    <title>MiPENS</title>
     {{-- Title --}}
+
+    {{-- Favicon --}}
+    <link rel="shortcut icon" type="image/png"
+        href="https://demos.adminmart.com/premium/bootstrap/modernize-bootstrap/package/dist/images/logos/favicon.ico" />
+    {{-- Favicon --}}
 
     {{-- Import CSS File --}}
     <link rel="dns-prefetch" href="//fonts.bunny.net">

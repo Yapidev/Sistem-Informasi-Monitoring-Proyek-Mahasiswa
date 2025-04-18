@@ -146,7 +146,10 @@
                                 <tr>
                                     <td>{{ $project->title }}</td>
                                     <td>{{ $project->lecturer->name }}</td>
-                                    <td>{{ $project->status_label }}</td>
+                                    <td><span class="mb-1 badge font-medium {{ $project->status_badge_class }}">
+                                            {{ $project->status_label }}
+                                        </span>
+                                    </td>
                                     <td>{{ \Carbon\Carbon::parse($project->created_at)->translatedFormat('d F Y') }}
                                     </td>
                                     <td class="d-flex gap-2">

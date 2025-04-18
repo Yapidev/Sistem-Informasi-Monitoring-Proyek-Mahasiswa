@@ -119,10 +119,13 @@
                     <div class="d-flex gap-3">
                         <button class="btn bg-danger-subtle text-danger" data-bs-dismiss="modal"
                             wire:click='resetModal'>Batal</button>
-                        <button class="btn btn-primary"
-                            @if ($modal_title == 'Edit Dokumen') wire:click='updateDocument' @else
-                            wire:click='storeDocument' @endif
-                            wire:loading.delay.attr='disabled'>Unggah</button>
+                        @if ($modal_title == 'Edit Dokumen')
+                            <button class="btn btn-primary" wire:click='updateDocument'
+                                wire:loading.delay.attr='disabled'>Perbarui</button>
+                        @else
+                            <button class="btn btn-primary" wire:click='storeDocument'
+                                wire:loading.delay.attr='disabled'>Unggah</button>
+                        @endif
                     </div>
                 </div>
             </div>

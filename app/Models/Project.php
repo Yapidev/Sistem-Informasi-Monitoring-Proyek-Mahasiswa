@@ -40,4 +40,14 @@ class Project extends Model
             default => 'Tidak Dikenal',
         };
     }
+
+    public function getStatusBadgeClassAttribute()
+    {
+        return match ($this->status) {
+            'not_started' => 'bg-light-secondary text-secondary',
+            'in_progress' => 'bg-light-warning text-warning',
+            'completed' => 'bg-light-success text-success',
+            default => 'bg-light-primary text-primary',
+        };
+    }
 }
