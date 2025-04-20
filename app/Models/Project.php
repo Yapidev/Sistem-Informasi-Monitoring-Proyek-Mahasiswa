@@ -34,8 +34,8 @@ class Project extends Model
     public function getStatusLabelAttribute()
     {
         return match ($this->status) {
-            'not_started' => 'Belum Dimulai',
-            'in_progress' => 'Sedang Berlangsung',
+            'not_started' => 'Sedang di ajukan',
+            'in_progress' => 'Sedang berlangsung',
             'completed' => 'Selesai',
             default => 'Tidak Dikenal',
         };

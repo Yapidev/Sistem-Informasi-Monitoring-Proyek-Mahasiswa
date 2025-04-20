@@ -47,7 +47,7 @@
                     'bg' => 'bg-info',
                 ],
                 [
-                    'title' => 'Proyek Belum Dikerjakan',
+                    'title' => 'Proyek Sedang di Ajukan',
                     'value' => $totalProjectNotStarted,
                     'icon' => 'ti-folders',
                     'bg' => 'bg-secondary',
@@ -118,8 +118,8 @@
                 'href' => route('lecturer.project', ['status' => 'in_progress']),
             ],
             [
-                'title' => 'Proyek Belum Dikerjakan',
-                'desc' => 'Klik untuk melihat proyek yang belum dikerjakan',
+                'title' => 'Proyek Sedang di Ajukan',
+                'desc' => 'Klik untuk melihat proyek yang sedang di ajukan',
                 'icon' => 'ti-folders',
                 'bg' => 'bg-secondary',
                 'href' => route('lecturer.project', ['status' => 'not_started']),

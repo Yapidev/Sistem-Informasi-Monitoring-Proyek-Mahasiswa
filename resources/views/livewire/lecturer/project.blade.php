@@ -48,8 +48,8 @@
                     <table class="table table-striped table-nowrap table-hover align-middle mb-0">
                         <thead>
                             <tr>
-                                <th>Judul Proyek</th>
                                 <th>Nama Mahasiswa</th>
+                                <th>Judul Proyek</th>
                                 <th>Dosen Pembimbing</th>
                                 <th>Status</th>
                                 <th>Tanggal</th>
@@ -69,10 +69,18 @@
                                     <td>{{ \Carbon\Carbon::parse($project->created_at)->translatedFormat('d F Y') }}
                                     </td>
                                     <td>
-                                        <a href="{{ route('lecturer.project-detail', $project->id) }}"
-                                            class="btn btn-info btn-sm" wire:navigate>
-                                            Detail
-                                        </a>
+                                        <div class="d-flex gap-2">
+                                            <a href="{{ route('lecturer.project-detail', $project->id) }}"
+                                                class="btn btn-info btn-sm" wire:navigate>
+                                                Detail
+                                            </a>
+                                            @if ($project->status == 'not_started' || $project->status == 'in_progress')
+                                                <button class="btn btn-success btn-sm"
+                                                    wire:click="confirm({{ $project->id }})">
+                                                    Konfirmasi
+                                                </button>
+                                            @endif
+                                        </div>
                                     </td>
                                 </tr>
                             @endforeach

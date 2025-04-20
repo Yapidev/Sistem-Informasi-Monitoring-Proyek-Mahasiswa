@@ -14,12 +14,24 @@ class Dashboard extends Component
             ->count();
         $totalDosen = User::where('role', 'lecturer')
             ->count();
-        $totalProject = Project::count();
-        $totalProjectNotStarted = Project::where('status', 'not_started')
+        $totalProject = auth()->user()
+            ->lecturer
+            ->projects()
             ->count();
-        $totalProjectInProgress = Project::where('status', 'in_progress')
+        $totalProjectNotStarted = auth()->user()
+            ->lecturer
+            ->projects()
+            ->where('status', 'not_started')
             ->count();
-        $totalProjectCompleted = Project::where('status', 'completed')
+        $totalProjectInProgress = auth()->user()
+            ->lecturer
+            ->projects()
+            ->where('status', 'in_progress')
+            ->count();
+        $totalProjectCompleted = auth()->user()
+            ->lecturer
+            ->projects()
+            ->where('status', 'completed')
             ->count();
         return view('livewire.lecturer.dashboard', [
             'totalMahasiswa' => $totalMahasiswa,

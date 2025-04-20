@@ -2,6 +2,7 @@
 
 namespace App\Livewire\Lecturer;
 
+use Jantinnerezo\LivewireAlert\Facades\LivewireAlert;
 use Livewire\Component;
 use Livewire\WithPagination;
 
@@ -50,5 +51,49 @@ class Project extends Component
             'not_started' => 'Ini adalah halaman yang berisi daftar proyek yang belum dimulai.',
             default => 'Ini adalah halaman yang berisi daftar semua proyek mahasiswa.',
         };
+    }
+
+    public function confirm($projectId)
+    {
+        $project = \App\Models\Project::findOrFail($projectId);
+
+        if ($project->status === 'not_started') {
+            LivewireAlert::asConfirm()
+                ->title('Konfirmasi Pengajuan Proyek?')
+                ->text('judul proyek: ' . $project->title)
+                ->withConfirmButton('Konfirmasi')
+                ->withDenyButton('Batalkan')
+                ->onConfirm('updateStatus', "$projectId")
+                ->show();
+        } elseif ($project->status === 'in_progress') {
+            LivewireAlert::asConfirm()
+                ->title('Konfirmasi Proyek Selesai?')
+                ->question()
+                ->text('judul proyek: ' . $project->title)
+                ->withConfirmButton('Konfirmasi')
+                ->withDenyButton('Batalkan')
+                ->onConfirm('updateStatus', "$projectId")
+                ->show();
+        }
+    }
+
+    public function updateStatus($projectId)
+    {
+        $id = $projectId[0];
+        $project = \App\Models\Project::findOrFail($id);
+
+        if ($project->status === 'not_started') {
+            $project->update(['status' => 'in_progress']);
+            LivewireAlert::title('Berhasil')
+                ->text('Proyek berhasil dikonfirmasi!')
+                ->success()
+                ->show();
+        } elseif ($project->status === 'in_progress') {
+            $project->update(['status' => 'completed']);
+            LivewireAlert::title('Berhasil')
+                ->text('Proyek berhasil dikonfirmasi!')
+                ->success()
+                ->show();
+        }
     }
 }

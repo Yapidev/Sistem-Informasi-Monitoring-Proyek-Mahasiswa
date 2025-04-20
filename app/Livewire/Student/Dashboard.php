@@ -12,7 +12,7 @@ class Dashboard extends Component
 {
     use WithPagination;
 
-    public $title, $description, $modal_title, $lecturer_id, $status, $project_id;
+    public $title, $description, $modal_title, $lecturer_id, $project_id;
     #[Url('search')]
     public $search = '';
     #[Url('sort')]
@@ -22,7 +22,6 @@ class Dashboard extends Component
         'title' => 'required|string|max:255',
         'description' => 'required|string',
         'lecturer_id' => 'required|exists:users,id',
-        'status' => 'in:not_started,in_progress,completed|required',
     ];
 
     protected $messages = [
@@ -35,9 +34,6 @@ class Dashboard extends Component
 
         'lecturer_id.required' => 'Dosen pembimbing wajib dipilih.',
         'lecturer_id.exists' => 'Dosen pembimbing yang dipilih tidak valid.',
-
-        'status.required' => 'Status proyek wajib dipilih.',
-        'status.in' => 'Status proyek tidak valid. Pilih salah satu: Belum Dimulai, Sedang Berlangsung, atau Selesai.',
     ];
 
     public function updatingSearch()
@@ -57,6 +53,7 @@ class Dashboard extends Component
             ->get();
 
         $projects = auth()->user()
+            ->student
             ->projects()
             ->with('lecturer')
             ->when($this->search, function ($query) {
@@ -74,7 +71,7 @@ class Dashboard extends Component
 
     public function createProject()
     {
-        $this->modal_title = 'Buat Proyek';
+        $this->modal_title = 'Ajukan Proyek';
         $this->resetModal();
         $this->openModal();
     }
@@ -88,7 +85,7 @@ class Dashboard extends Component
             'description' => $this->description,
             'student_id' => auth()->id(), // atau sesuai relasi
             'lecturer_id' => $this->lecturer_id,
-            'status' => $this->status,
+            'status' => 'not_started',
         ]);
 
         $this->closeModal();
@@ -125,7 +122,6 @@ class Dashboard extends Component
             'title' => $this->title,
             'description' => $this->description,
             'lecturer_id' => $this->lecturer_id,
-            'status' => $this->status,
         ]);
 
         $this->closeModal();
@@ -174,7 +170,7 @@ class Dashboard extends Component
 
     public function resetModal()
     {
-        $this->reset(['title', 'description', 'lecturer_id', 'status', 'project_id']);
+        $this->reset(['title', 'description', 'lecturer_id', 'project_id']);
         $this->resetValidation();
     }
 }

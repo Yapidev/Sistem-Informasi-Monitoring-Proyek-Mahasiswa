@@ -16,8 +16,8 @@ class Student extends Model
         return $this->belongsTo(User::class);
     }
 
-    public function project()
+    public function projects()
     {
-        return $this->hasOne(Project::class);
+        return $this->hasMany(Project::class, 'student_id');
     }
 }

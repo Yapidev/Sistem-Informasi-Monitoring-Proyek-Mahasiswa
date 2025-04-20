@@ -9,7 +9,7 @@
                         Selamat datang di Aplikasi MiPENS. Aplikasi Monitoring Proyek Mahasiswa.
                     </p>
                     <button class="btn btn-primary" wire:click='createProject' wire:loading.delay.attr='disabled'>
-                        Buat Proyek
+                        Ajukan Proyek
                     </button>
                 </div>
                 <div class="col-sm-5">
@@ -68,20 +68,6 @@
                                         @endforeach
                                     </select>
                                     @error('lecturer_id')
-                                        <div class="invalid-feedback">{{ $message }}</div>
-                                    @enderror
-                                </div>
-
-                                <div class="col-md-12 mb-3">
-                                    <label class="form-label">Status</label>
-                                    <select name="status" id="status"
-                                        class="form-select @error('status') is-invalid @enderror" wire:model='status'>
-                                        <option>Pilih Status</option>
-                                        <option value="not_started">Belum dimulai</option>
-                                        <option value="in_progress">Sedang dikerjakan</option>
-                                        <option value="completed">Selesai</option>
-                                    </select>
-                                    @error('status')
                                         <div class="invalid-feedback">{{ $message }}</div>
                                     @enderror
                                 </div>
