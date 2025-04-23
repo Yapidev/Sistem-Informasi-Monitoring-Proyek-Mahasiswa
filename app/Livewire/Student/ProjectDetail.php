@@ -36,6 +36,15 @@ class ProjectDetail extends Component
         'description.min' => 'Deskripsi minimal :min karakter.',
     ];
 
+    public function mount(Project $project)
+    {
+        if ($project->student_id !== auth()->user()->student->id) {
+            abort(403, 'Unauthorized action.');
+        } else if ($project->status === 'not_started') {
+            abort(403, 'Project belum di setujui.');
+        }
+    }
+
     public function render()
     {
         $project = $this->project->load([

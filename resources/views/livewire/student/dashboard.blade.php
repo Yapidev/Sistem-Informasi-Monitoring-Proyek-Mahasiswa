@@ -139,8 +139,10 @@
                                     <td>{{ \Carbon\Carbon::parse($project->created_at)->translatedFormat('d F Y') }}
                                     </td>
                                     <td class="d-flex gap-2">
-                                        <a href="{{ route('student.project.detail', $project->id) }}"
-                                            class="btn btn-info btn-sm" wire:navigate>Detail</a>
+                                        @if ($project->status !== 'not_started')
+                                            <a href="{{ route('student.project.detail', $project->id) }}"
+                                                class="btn btn-info btn-sm" wire:navigate>Detail</a>
+                                        @endif
                                         <button class="btn btn-warning btn-sm"
                                             wire:click='editProject({{ $project->id }})'
                                             wire:loading.attr='disabled'>Edit</button>

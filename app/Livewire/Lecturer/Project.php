@@ -16,7 +16,9 @@ class Project extends Component
 
     public function render()
     {
-        $projects = \App\Models\Project::query()
+        $projects = auth()->user()
+            ->lecturer
+            ->projects()
             ->when($this->status === 'completed', fn($q) => $q->where('status', 'completed'))
             ->when($this->status === 'in_progress', fn($q) => $q->where('status', 'in_progress'))
             ->when($this->status === 'not_started', fn($q) => $q->where('status', 'not_started'))
