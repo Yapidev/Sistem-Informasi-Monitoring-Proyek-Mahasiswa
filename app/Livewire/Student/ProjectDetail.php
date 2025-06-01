@@ -4,6 +4,7 @@ namespace App\Livewire\Student;
 
 use App\Models\Progress;
 use App\Models\Project;
+use App\Notifications\ProgressUpdated;
 use Illuminate\Support\Facades\Storage;
 use Livewire\Component;
 use Livewire\Features\SupportFileUploads\WithFileUploads;
@@ -119,11 +120,13 @@ class ProjectDetail extends Component
     {
         $this->validate();
 
-        Progress::create([
+        $progress = Progress::create([
             'project_id' => $this->project->id,
             'date' => $this->date,
             'description' => $this->description,
         ]);
+
+        $progress->project->lecturer->notify(new ProgressUpdated($progress, false));
 
         $this->closeProgressModal();
         $this->resetProgressModal();
@@ -156,6 +159,8 @@ class ProjectDetail extends Component
             'date' => $this->date,
             'description' => $this->description,
         ]);
+
+        $progress->project->lecturer->notify(new ProgressUpdated($progress, true));
 
         $this->closeProgressModal();
         $this->resetProgressModal();

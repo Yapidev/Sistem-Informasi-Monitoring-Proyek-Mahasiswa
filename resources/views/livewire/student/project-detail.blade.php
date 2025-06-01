@@ -61,7 +61,7 @@
                 <div class="modal-footer">
                     <div class="d-flex gap-6">
                         <button class="btn bg-danger-subtle text-danger" data-bs-dismiss="modal"
-                            wire:click='resetModal'>Batal</button>
+                            wire:click='resetProgressModal'>Batal</button>
                         <button class="btn btn-primary"
                             @if ($modal_title == 'Edit Progres') wire:click='updateProgress' @else
                             wire:click='storeProgress' @endif
@@ -119,7 +119,7 @@
                 <div class="modal-footer">
                     <div class="d-flex gap-3">
                         <button class="btn bg-danger-subtle text-danger" data-bs-dismiss="modal"
-                            wire:click='resetModal'>Batal</button>
+                            wire:click='resetProgressModal'>Batal</button>
                         @if ($modal_title == 'Edit Dokumen')
                             <button class="btn btn-primary" wire:click='updateDocument'
                                 wire:loading.delay.attr='disabled'>Perbarui</button>
